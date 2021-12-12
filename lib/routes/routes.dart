@@ -7,6 +7,6 @@ import 'package:flutter/widgets.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/": (BuildContext context) => AuthPage(),
-  "/Main": (BuildContext context) => InitialPage(user: ModalRoute.of(context)!.settings.arguments as UserModel),
-  "/Detail": (BuildContext context) => const DetailPage(),
+  "/Main": (BuildContext context) => InitialPage(user: ModalRoute.of(context)!.settings.arguments as String),
+  "/Detail": (BuildContext context) =>   DetailPage(url: ModalRoute.of(context)!.settings.arguments as String),
 };

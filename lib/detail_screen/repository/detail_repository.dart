@@ -5,11 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_comics/common/env.dart';
 
-class InitialRepository{
-  final FirebaseAuth _auth=FirebaseAuth.instance;
+class DetailRepository{
 
   final urlApi=enviroments.development;
-  InitialRepository();
+  DetailRepository();
 
   Future<List<GeneralComicsList>> getComics ({String limit = "15"}) async{
     final queryParameters = {
@@ -33,10 +32,6 @@ class InitialRepository{
       comics.add(auxComicItem);
     }
     return comics;
-  }
-
-  Future<void> singOut() async{
-    return _auth.signOut();
   }
 
 }

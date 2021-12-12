@@ -3,6 +3,7 @@ import 'package:app_comics/auth_screen/bloc/auth_bloc.dart';
 import 'package:app_comics/auth_screen/bloc/auth_event.dart';
 import 'package:app_comics/auth_screen/bloc/auth_state.dart';
 import 'package:app_comics/auth_screen/repository/auth_repository.dart';
+import 'package:app_comics/widgets/error_warning.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +35,7 @@ class _LoginForm extends State<LoginForm>{
   @override
   void initState() {
     super.initState();
-    _selections=[true, false];
+    _selections=[false, true];
     _authBloc = BlocProvider.of<AuthBloc>(context);
     _emailController= TextEditingController();
     _passController= TextEditingController();
@@ -67,6 +68,7 @@ class _LoginForm extends State<LoginForm>{
     Size mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         flexibleSpace: Visibility(
           visible: true,
           child: BlocBuilder(
@@ -81,16 +83,29 @@ class _LoginForm extends State<LoginForm>{
             }
             ),
         ),
-        title: Column(
-          children: [
-            Text("¡Ingresa o registrate!", style: Theme.of(context).textTheme.headline2),
-          ],
+        title: BlocBuilder(
+            bloc: _authBloc,
+            builder: (BuildContext context, state) {
+              if (state is Uninitialized) {
+                return Column(
+                  children: [
+                    Text(state.message, style: Theme.of(context).textTheme.headline2),
+                  ],
+                );
+              }
+              return Column(
+                children: [
+                  Text("¡Ingresa o registrate!", style: Theme.of(context).textTheme.headline2),
+                ],
+              );
+            }
         ),
       ),
       body: BlocBuilder(
         bloc: _authBloc,
         builder: (BuildContext context, state) {
           if(state is Uninitialized){
+
             return SingleChildScrollView(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: mediaQuery.height*0.05),
@@ -105,10 +120,10 @@ class _LoginForm extends State<LoginForm>{
                         children: [
                           SizedBox(
                               width: mediaQuery.width*0.3,
-                              child: const Icon(Icons.supervised_user_circle, size: 40.0,)),
+                              child: const Icon(Icons.assignment_ind_outlined, size: 40.0,)),
                           SizedBox(
                               width: mediaQuery.width*0.3,
-                              child: const Icon(Icons.assignment_ind_outlined,
+                              child: const Icon(Icons.supervised_user_circle,
                                   size: 40.0))
                         ],
                         onPressed: ((int index){
@@ -252,20 +267,19 @@ class _LoginForm extends State<LoginForm>{
           }
           if(state is Success){
             Future.delayed(Duration.zero, () async {
-              print(state.user!.email);
-              Navigator.pushNamed(context, '/Main', arguments: state.user);
+              Navigator.pushNamed(context, '/Main', arguments: state.user!.displayName);
             });
             return Container();
           }
 
           if(state is Fail){
 
-            return const Text("Falló");
+            return ErrorWarning(description: state.message, isError: true);
           }
 
           if(state is Warning){
 
-            return Text(state.message);
+            return ErrorWarning(description: state.message, isError: false);
           }
 
           return const Center(child: Text("Cargando"));

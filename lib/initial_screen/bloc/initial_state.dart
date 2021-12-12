@@ -14,7 +14,6 @@ class InitState extends InitialState{
 }
 
 class EmptyState extends InitialState{
-
   const EmptyState();
 }
 

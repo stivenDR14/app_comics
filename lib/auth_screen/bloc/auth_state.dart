@@ -42,15 +42,3 @@ class Uninitialized extends AuthState{
   const Uninitialized(this.message);
 }
 
-class Authenticated extends AuthState{
-  final UserModel  user;
-  const Authenticated(this.user);
-
-  @override
-  List<Object> get props => [user];
-}
-
-class Unauthenticated extends AuthState {
-  final String message;
-  const Unauthenticated(this.message);
-}

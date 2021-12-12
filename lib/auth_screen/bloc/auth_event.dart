@@ -10,8 +10,6 @@ abstract class AuthEvent extends Equatable {
 }
 
 
-class InitEvent extends AuthEvent{}
-
 class Submitted extends AuthEvent{
   final BuildContext context;
   final String email;

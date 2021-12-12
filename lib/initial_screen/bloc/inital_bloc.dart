@@ -16,10 +16,40 @@ class InitialBloc extends Bloc<InitialEvent,InitialState> {
   @override
   Stream<InitialState> mapEventToState(InitialEvent event) async*{
     List<GeneralComicsList> booksList;
-    yield const Loading();
+
     if(event is InitEvent){
-      booksList= await initialRepository.getComics();
-      yield Success(booksList);
+      yield const Loading();
+      try{
+        booksList= await initialRepository.getComics();
+        yield Success(booksList);
+      }catch(error){
+        yield const Fail("Error al ejecutar acción");
+      }
+
+    }
+
+    if(event is ExitEvent){
+      yield const Loading();
+      try{
+        await initialRepository.singOut();
+        yield EmptyState();
+      }catch(error){
+        yield const Fail("Error al ejecutar acción");
+      }
+
+
+    }
+
+    if(event is GetEvent){
+      yield const Loading();
+      try{
+        booksList= await initialRepository.getComics(limit: event.count.toString());
+        yield Success(booksList);
+      }catch(error){
+        yield const Fail("Error al ejecutar acción");
+      }
+
+
     }
   }
 
