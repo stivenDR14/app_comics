@@ -28,6 +28,9 @@ class _LoginForm extends State<LoginForm>{
   late AuthBloc _authBloc;
   late List<bool> _selections;
 
+  late bool _password1Visible;
+  late bool _password2Visible;
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +40,8 @@ class _LoginForm extends State<LoginForm>{
     _passController= TextEditingController();
     _passConfirmController= TextEditingController();
     _nameController= TextEditingController();
-
+    _password1Visible=false;
+    _password2Visible=false;
   }
 
   @override
@@ -147,12 +151,26 @@ class _LoginForm extends State<LoginForm>{
                       TextField(
                         style: Theme.of(context).textTheme.bodyText2,
                         controller: _passController,
+                        obscureText: !_password1Visible,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
                           hintStyle: Theme.of(context).textTheme.bodyText1,
                           hintText: '********',
                           border: const OutlineInputBorder(),
                           contentPadding: const EdgeInsets.all(15),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _password1Visible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Theme.of(context).primaryColorDark,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _password1Visible = !_password1Visible;
+                              });
+                            },
+                          ),
                         ),
                       ),
                       _selections[1]?Container():SizedBox(
@@ -166,12 +184,26 @@ class _LoginForm extends State<LoginForm>{
                       _selections[1]?Container():TextField(
                         style: Theme.of(context).textTheme.bodyText2,
                         controller: _passConfirmController,
+                        obscureText: !_password2Visible,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
                           hintStyle: Theme.of(context).textTheme.bodyText1,
                           hintText: '********',
                           border: const OutlineInputBorder(),
                           contentPadding: const EdgeInsets.all(15),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _password2Visible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Theme.of(context).primaryColorDark,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _password2Visible = !_password2Visible;
+                              });
+                            },
+                          ),
                         ),
                       ),
                       _selections[1]?Container():
@@ -219,12 +251,16 @@ class _LoginForm extends State<LoginForm>{
             );
           }
           if(state is Success){
-            Navigator.pushNamed(context, '/Main');
+            Future.delayed(Duration.zero, () async {
+              print(state.user!.email);
+              Navigator.pushNamed(context, '/Main', arguments: state.user);
+            });
+            return Container();
           }
 
           if(state is Fail){
 
-            return Text("Falló");
+            return const Text("Falló");
           }
 
           if(state is Warning){

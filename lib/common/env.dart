@@ -7,9 +7,9 @@ extension EnvConfig on enviroments{
   String get apiHost {
     switch (this) {
       case enviroments.production:
-        return 'http://comicvine.gamespot.com/api/';
+        return 'comicvine.gamespot.com';
       case enviroments.development:
-        return 'http://comicvine.gamespot.com/api/';
+        return 'comicvine.gamespot.com';
       default:
         return '';
     }
@@ -26,7 +26,9 @@ extension EnvConfig on enviroments{
     }
   }
 
-  String get category => "issues";
+  String get category => "/api/issues";
+
+  String get params => "name,api_detail_url,volume,image";
 
   String get jsonFormat => "json";
 }

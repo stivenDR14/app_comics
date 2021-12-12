@@ -5,11 +5,12 @@ import 'custom_colors.dart';
 ThemeData generalTheme() {
   return ThemeData(
       disabledColor: CustomColors.dustyBlue.withOpacity(0.5),
-      splashColor: CustomColors.darkSalmon,
+      splashColor: CustomColors.orangeLight,
       primaryColor: CustomColors.darkSalmon,
-      focusColor: CustomColors.darkSalmon,
+      focusColor:CustomColors.darkSalmon,
       primarySwatch: Colors.grey,
       scaffoldBackgroundColor: CustomColors.dustyBlue,
+      primaryColorDark: CustomColors.darkSalmon,
       buttonTheme: ButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
         buttonColor: CustomColors.orangeLight,

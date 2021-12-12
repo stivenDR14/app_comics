@@ -1,35 +1,48 @@
 
+import 'package:app_comics/initial_screen/bloc/inital_bloc.dart';
+import 'package:app_comics/initial_screen/bloc/initial_event.dart';
+import 'package:app_comics/models/user_model.dart';
 import 'package:app_comics/utils/alert_dialog_aux.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InitialPage extends StatefulWidget {
-  const InitialPage({Key? key, required this.title}) : super(key: key);
+  const InitialPage({Key? key, required this.user}) : super(key: key);
 
-  final String title;
+  final UserModel user;
 
   @override
-  State<InitialPage> createState() => _MainPage();
+  _InitialPage createState() => _InitialPage(user);
 }
 
-class _MainPage extends State<InitialPage> {
+class _InitialPage extends State<InitialPage> {
 
+  _InitialPage(this.userAux);
+  final UserModel userAux;
 
+  InitialBloc initialBloc= InitialBloc();
+
+  @override
+  void initState(){
+
+  print(userAux);
+    initialBloc.add(InitEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: Theme.of(context).textTheme.headline2,),
+        title: Text("Sumario de comics", style: Theme.of(context).textTheme.headline2,),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back),
           onPressed: (){AlertDialogAux(
                   () => Navigator.of(context).pop(),
-                  () => Navigator.of(context).pop(),
                   "Aviso",
-                  "Si sales de la app tu sesión cerrará, ¿Estás seguro de salir?"
-                  );
+                  "Si sales de la app tu sesión cerrará, ¿Estás seguro de salir?",
+                  true
+                  ).exitDialog(context);
           }
         ),
       ),
@@ -54,7 +67,7 @@ class _MainPage extends State<InitialPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Bienvenido ${userAux.displayName}',
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Text(

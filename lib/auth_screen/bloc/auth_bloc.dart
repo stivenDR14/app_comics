@@ -9,8 +9,7 @@ class AuthBloc extends Bloc<AuthEvent,AuthState> {
   final  AuthRepository authRepository;
 
   AuthBloc({required AuthRepository authRepositoryAux})
-      :assert (authRepositoryAux != null),
-      authRepository = authRepositoryAux;
+      :authRepository = authRepositoryAux;
 
   @override
   AuthState get initialState => const Uninitialized("No inicializado");
@@ -41,22 +40,21 @@ class AuthBloc extends Bloc<AuthEvent,AuthState> {
           if(mode){
             await authRepository.signUp(event.email, event.password, event.displayName).then((value)
             async*{
-              yield  Success(value);
+              yield  const Uninitialized("Por favor inicia sesión para acceder a los comics...");
             }).catchError((error) async*{
               yield const Fail("Ha sucedido un error");
             });
           }else{
-
-            print("iniciando");
-            var result= await authRepository.signInWithCredentials(event.email , event.password)
-                .catchError((error) async*{
+            try{
+              var result= await authRepository.signInWithCredentials(event.email , event.password);
+              user.displayName=result.user!.displayName;
+              user.email=result.user!.email;
+              user.uid=result.user!.uid;
+              yield  Success(user);
+            }catch(error){
               yield const Fail("Ha sucedido un error");
-            });
-            print(result);
-            user.displayName=result.user!.displayName;
-            user.email=result.user!.email;
-            user.uid=result.user!.uid;
-            yield  Success(user);
+            }
+
           }
         }else{
           yield const Warning("Las contraseñas deben ser iguales y no deben estar vacias");
