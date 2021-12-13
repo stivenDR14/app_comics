@@ -21,6 +21,7 @@ ThemeData generalTheme() {
       headline2: TextStyle(fontSize: 26.0, fontFamily: 'Antonio', fontWeight: FontWeight.w500),
       bodyText1: TextStyle(fontSize: 14.0, fontFamily: 'Antonio', fontWeight: FontWeight.w300),
       bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Antonio', fontWeight: FontWeight.w500),
+      subtitle1: TextStyle(fontSize: 7.0, fontFamily: 'Antonio', fontWeight: FontWeight.w100),
       )
   );
 }

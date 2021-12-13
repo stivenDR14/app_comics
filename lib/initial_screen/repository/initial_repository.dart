@@ -11,15 +11,24 @@ class InitialRepository{
   final urlApi=enviroments.development;
   InitialRepository();
 
-  Future<List<GeneralComicsList>> getComics ({String limit = "15"}) async{
+  Future<List<GeneralComicsList>> getComics ({String limit = "15", String? param="the avengers", bool? isAsc}) async{
     final queryParameters = {
       'api_key': urlApi.keyApi,
       'format':  urlApi.jsonFormat,
       'field_list': urlApi.params,
       'limit': limit,
-      'filter': 'name:x-men',
-      'sort': 'cover_date:desc'
     };
+
+    if(param!=null){
+      queryParameters["filter"]="name:$param";
+    }
+    if(isAsc!=null){
+      queryParameters["sort"]="name:${isAsc?"asc":"desc"}";
+    }
+
+    print(queryParameters);
+    print(param);
+    print(isAsc);
     final url = Uri.http(urlApi.apiHost, urlApi.category,queryParameters);
     final resp = await http.get(url);
     final Map<String, dynamic> data = json.decode(resp.body);

@@ -29,6 +29,8 @@ class _InitialPage extends State<InitialPage> {
   bool isGrid=false;
   String dropdownValue = 'name';
   int contComics=15;
+  String _valueFilter="the avengers";
+  bool isAsc=false;
 
   TextEditingController inputController= TextEditingController();
   final ScrollController _controller= ScrollController();
@@ -44,7 +46,7 @@ class _InitialPage extends State<InitialPage> {
       setState(() {
         contComics=contComics+15;
       });
-      initialBloc.add(GetEvent(contComics));
+      initialBloc.add(FilterEvent(contComics, _valueFilter, isAsc));
     }
   }
 
@@ -60,7 +62,41 @@ class _InitialPage extends State<InitialPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).focusColor,
-        title: Text("Sumario de comics", style: Theme.of(context).textTheme.headline2,),
+        title: DropdownButton(
+          value: _valueFilter,
+          items: <DropdownMenuItem<String>>[
+            DropdownMenuItem(
+              child: Text("Spiderman", style: Theme.of(context).textTheme.headline2,),
+              value: 'spiderman',
+            ),
+            DropdownMenuItem(
+                child: Text("X-Men", style: Theme.of(context).textTheme.headline2,),
+                value: 'x-men'
+            ),
+            DropdownMenuItem(
+                child: Text("Los vengadores", style: Theme.of(context).textTheme.headline2,),
+                value: 'the avengers'
+            ),
+            DropdownMenuItem(
+                child: Text("G.I. Joe", style: Theme.of(context).textTheme.headline2,),
+                value: 'g.i. joe'
+            ),
+            DropdownMenuItem(
+                child: Text("Transformers", style: Theme.of(context).textTheme.headline2,),
+                value: 'transformers'
+            ),
+            DropdownMenuItem(
+                child: Text("Mafalda", style: Theme.of(context).textTheme.headline2,),
+                value: 'mafalda'
+            ),
+          ],
+          onChanged: (String? valueAux) {
+            setState(() {
+              _valueFilter = valueAux!;
+              contComics=15;
+            });
+            initialBloc.add(FilterEvent(contComics, _valueFilter, isAsc));
+          },),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: (){AlertDialogAux(
@@ -197,7 +233,22 @@ class _InitialPage extends State<InitialPage> {
             child: isGrid? const Icon(Icons.list):const Icon(Icons.grid_3x3),
           ),
           SizedBox(
-            width: mediaQuery.width*0.6,
+            width: mediaQuery.width*0.2,
+          ),
+          FloatingActionButton(
+            tooltip: "Orden Asc/Desc por fecha de publicación",
+            heroTag: null,
+            backgroundColor: Theme.of(context).focusColor,
+            onPressed: (){
+              setState(() {
+                isAsc= !isAsc;
+              });
+              initialBloc.add(FilterEvent(contComics, _valueFilter, isAsc));
+            },
+            child: isAsc? const Icon(Icons.arrow_circle_up):const Icon(Icons.arrow_circle_down),
+          ),
+          SizedBox(
+            width: mediaQuery.width*0.2,
           ),
           FloatingActionButton(
             heroTag: null,

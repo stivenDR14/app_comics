@@ -50,6 +50,16 @@ class InitialBloc extends Bloc<InitialEvent,InitialState> {
       }
     }
 
+    if(event is FilterEvent){
+      yield const Loading();
+      try{
+        booksList= await initialRepository.getComics(limit: event.count.toString(), param: event.param, isAsc: event.isAsc);
+        yield Success(booksList);
+      }catch(error){
+        yield const Fail("Error al ejecutar acción");
+      }
+    }
+
   }
 
 

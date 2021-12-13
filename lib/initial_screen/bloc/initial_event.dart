@@ -23,3 +23,14 @@ class GetEvent extends InitialEvent{
 
 }
 
+class FilterEvent extends InitialEvent{
+  final int count;
+  final String param;
+  final bool isAsc;
+
+  const FilterEvent(this.count, this.param, this.isAsc);
+
+  @override
+  List<Object> get props => [count, param, isAsc];
+
+}

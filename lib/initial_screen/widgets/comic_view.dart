@@ -37,10 +37,10 @@ class ComicView extends StatelessWidget {
               ),
             ),
             Expanded(
-                flex: 4,
+                flex: 2,
                 child: Column(
                   children: [
-                    Text(" ${itemComic.apiDetailUrl!="" ?itemComic.volume!["name"]: "---"}",style: Theme.of(context).textTheme.bodyText1),
+                    Text(" ${itemComic.apiDetailUrl!="" ?itemComic.volume!["name"]: "---"}",style: Theme.of(context).textTheme.subtitle1),
 
                   ],
                 )),
