@@ -14,4 +14,4 @@ the folder /lib/common/env.dart in the variable keyApi
 
 for run the project add an aditional run arg: --no-sound-null-safety
 the command for run the project: flutter run --no-sound-null-safety
-or in visual studio, go to run menu, and click in "edit configurations", in the item aditional run args, add: --no-sound-null-safety
+or in android studio, go to run menu, and click in "edit configurations", in the item aditional run args, add: --no-sound-null-safety
