@@ -28,7 +28,7 @@ extension EnvConfig on enviroments{
 
   String get category => "/api/issues";
 
-  String get params => "name,api_detail_url,volume,image";
+  String get params => "name,api_detail_url,volume,image,cover_date";
 
   String get jsonFormat => "json";
 }

@@ -144,8 +144,7 @@ class _LoginForm extends State<LoginForm>{
                         child: Text('Correo electrónico *',
                             style: Theme.of(context).textTheme.headline2),
                       ),
-                      TextField(
-                        style: Theme.of(context).textTheme.bodyText2,
+                      TextField(style: Theme.of(context).textTheme.bodyText2,
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -154,6 +153,7 @@ class _LoginForm extends State<LoginForm>{
                           border: const OutlineInputBorder(),
                           contentPadding: const EdgeInsets.all(15),
                         ),
+
                       ),
                       SizedBox(
                         height: mediaQuery.height*0.05,

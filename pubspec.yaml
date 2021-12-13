@@ -51,6 +51,13 @@ dev_dependencies:
   bloc: ^4.0.0
   http:
   equatable: ^2.0.3
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/logo_comics.png"
+  adaptive_icon_background: "assets/icons/logo_comics.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

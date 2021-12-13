@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorWarning extends StatelessWidget{
-  const ErrorWarning({Key? key, required this.description, required this.isError}) : super(key: key);
+  const ErrorWarning({Key? key, required this.description, required this.isError, this.showButton=true}) : super(key: key);
 
   final String description;
   final bool isError;
+  final bool showButton;
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +14,17 @@ class ErrorWarning extends StatelessWidget{
     return Center(
       child: Column(
         children: [
-          TextButton(
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(16.0),
-                primary:Theme.of(context).primaryColorDark,
-                backgroundColor: Theme.of(context).disabledColor,
-              ),
-              onPressed: (){
+          showButton?SizedBox(
+            height: mediaQuery.height*0.1,
+          ):Container(),
+          showButton?FloatingActionButton(
+            heroTag: null,
+            backgroundColor: Theme.of(context).focusColor,
+            onPressed: (){
               Navigator.pushNamed(context, '/');
-            }, child: Text(
-                    "Volver",
-                    style: Theme.of(context).textTheme.headline2
-                )),
+            },
+            child:const Icon(Icons.arrow_back),
+          ):Container(),
           SizedBox(
             height: mediaQuery.height*0.3,
           ),

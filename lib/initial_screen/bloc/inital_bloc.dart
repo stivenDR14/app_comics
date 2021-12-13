@@ -48,9 +48,8 @@ class InitialBloc extends Bloc<InitialEvent,InitialState> {
       }catch(error){
         yield const Fail("Error al ejecutar acción");
       }
-
-
     }
+
   }
 
 

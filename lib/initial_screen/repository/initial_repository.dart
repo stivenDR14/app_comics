@@ -16,22 +16,16 @@ class InitialRepository{
       'api_key': urlApi.keyApi,
       'format':  urlApi.jsonFormat,
       'field_list': urlApi.params,
-      'limit': limit
+      'limit': limit,
+      'filter': 'name:x-men',
+      'sort': 'cover_date:desc'
     };
     final url = Uri.http(urlApi.apiHost, urlApi.category,queryParameters);
     final resp = await http.get(url);
     final Map<String, dynamic> data = json.decode(resp.body);
     final List<dynamic> dataChild = data["results"];
-    List<GeneralComicsList> comics=[];
-    for (var element in dataChild) {
-      //name,api_detail_url,volume,image
-      GeneralComicsList auxComicItem=GeneralComicsList();
-      auxComicItem.name=element["name"];
-      auxComicItem.apiDetailUrl=element["api_detail_url"];
-      auxComicItem.volume=element["volume"];
-      auxComicItem.image=element["image"];
-      comics.add(auxComicItem);
-    }
+    List<GeneralComicsList> comics=dataChild.map((i)=>GeneralComicsList.fromJson(i)).toList();
+
     return comics;
   }
 

@@ -9,6 +9,7 @@ ThemeData generalTheme() {
       primaryColor: CustomColors.darkSalmon,
       focusColor:CustomColors.darkSalmon,
       primarySwatch: Colors.grey,
+      dividerColor: CustomColors.darkSalmon,
       scaffoldBackgroundColor: CustomColors.dustyBlue,
       primaryColorDark: CustomColors.darkSalmon,
       buttonTheme: ButtonThemeData(

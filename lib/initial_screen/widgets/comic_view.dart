@@ -37,8 +37,13 @@ class ComicView extends StatelessWidget {
               ),
             ),
             Expanded(
-                flex: 1,
-                child: Text(" ${itemComic.apiDetailUrl!="" ?itemComic.volume!["name"]: "---"}",style: Theme.of(context).textTheme.bodyText1)),
+                flex: 4,
+                child: Column(
+                  children: [
+                    Text(" ${itemComic.apiDetailUrl!="" ?itemComic.volume!["name"]: "---"}",style: Theme.of(context).textTheme.bodyText1),
+
+                  ],
+                )),
           ],
         ),
       ):Card(
@@ -64,6 +69,7 @@ class ComicView extends StatelessWidget {
               ),
               ListTile(
                 subtitle: Text(" ${itemComic.apiDetailUrl!="" ?itemComic.volume!["name"]: "---"}",style: Theme.of(context).textTheme.headline2),
+                trailing: Text(" ${itemComic.coverDate}",style: Theme.of(context).textTheme.bodyText1),
               ),
             ],
           ),

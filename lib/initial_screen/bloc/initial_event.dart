@@ -22,3 +22,4 @@ class GetEvent extends InitialEvent{
   List<Object> get props => [count];
 
 }
+

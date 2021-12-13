@@ -4,6 +4,7 @@ import 'package:app_comics/initial_screen/bloc/initial_event.dart';
 import 'package:app_comics/initial_screen/widgets/comic_view.dart';
 import 'package:app_comics/models/user_model.dart';
 import 'package:app_comics/utils/alert_dialog_aux.dart';
+import 'package:app_comics/widgets/error_warning.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +27,10 @@ class _InitialPage extends State<InitialPage> {
   InitialBloc initialBloc= InitialBloc();
 
   bool isGrid=false;
-
+  String dropdownValue = 'name';
   int contComics=15;
 
+  TextEditingController inputController= TextEditingController();
   final ScrollController _controller= ScrollController();
   @override
   void initState(){
@@ -44,6 +46,12 @@ class _InitialPage extends State<InitialPage> {
       });
       initialBloc.add(GetEvent(contComics));
     }
+  }
+
+  @override
+  void dispose() {
+    inputController.dispose();
+    super.dispose();
   }
 
   @override
@@ -91,7 +99,7 @@ class _InitialPage extends State<InitialPage> {
                    SingleChildScrollView(
                      controller: _controller,
                      child: GridView.count(
-                       physics: NeverScrollableScrollPhysics(),
+                       physics: const NeverScrollableScrollPhysics(),
                        scrollDirection: Axis.vertical,
                        shrinkWrap: true,
                        crossAxisCount: 3,
@@ -161,6 +169,17 @@ class _InitialPage extends State<InitialPage> {
                  ],
                );
               }
+              if(state is Fail){
+
+                return ErrorWarning(description: state.message, isError: true);
+              }
+
+              if(state is Warning){
+
+                return ErrorWarning(description: state.message, isError: false);
+              }
+
+              return const Center(child: Text("Cargando"));
               return Container();
             }
         ),
