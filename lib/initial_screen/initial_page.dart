@@ -29,7 +29,7 @@ class _InitialPage extends State<InitialPage> {
   bool isGrid=false;
   String dropdownValue = 'name';
   int contComics=15;
-  String _valueFilter="the avengers";
+  String _valueFilter="avengers";
   bool isAsc=false;
 
   TextEditingController inputController= TextEditingController();
@@ -75,11 +75,11 @@ class _InitialPage extends State<InitialPage> {
             ),
             DropdownMenuItem(
                 child: Text("Los vengadores", style: Theme.of(context).textTheme.headline2,),
-                value: 'the avengers'
+                value: 'avengers'
             ),
             DropdownMenuItem(
                 child: Text("G.I. Joe", style: Theme.of(context).textTheme.headline2,),
-                value: 'g.i. joe'
+                value: 'g.i.joe'
             ),
             DropdownMenuItem(
                 child: Text("Transformers", style: Theme.of(context).textTheme.headline2,),
@@ -230,7 +230,7 @@ class _InitialPage extends State<InitialPage> {
                 isGrid= !isGrid;
               });
             },
-            child: isGrid? const Icon(Icons.list):const Icon(Icons.grid_3x3),
+            child: isGrid? const Icon(Icons.list):const Icon(Icons.table_chart),
           ),
           SizedBox(
             width: mediaQuery.width*0.2,

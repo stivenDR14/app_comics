@@ -11,7 +11,7 @@ class InitialRepository{
   final urlApi=enviroments.development;
   InitialRepository();
 
-  Future<List<GeneralComicsList>> getComics ({String limit = "15", String? param="the avengers", bool? isAsc}) async{
+  Future<List<GeneralComicsList>> getComics ({String limit = "15", String? param="avengers", bool? isAsc}) async{
     final queryParameters = {
       'api_key': urlApi.keyApi,
       'format':  urlApi.jsonFormat,
